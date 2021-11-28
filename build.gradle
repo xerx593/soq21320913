@@ -24,8 +24,8 @@ sourceSets {
 
 task genJaxb {
     ext.sourcesDir = "${buildDir}/generated-sources/jaxb"
-    ext.schema = "src/main/resources/greeting.xsd" // replace cuntries.xsd with our xsd
-
+    ext.schema = "src/main/resources/greeting.xsd" // replace countries.xsd with our xsd
+    ext.encoding = "UTF-8"
     outputs.dir sourcesDir
 
     doLast() {
@@ -34,7 +34,7 @@ task genJaxb {
                     classpath: configurations.jaxb.asPath
             mkdir(dir: sourcesDir)
 
-            xjc(destdir: sourcesDir, schema: schema) {
+            xjc(destdir: sourcesDir, schema: schema, encoding: encoding) {
                 arg(value: "-wsdl")
                 produces(dir: sourcesDir, includes: "**/*.java")
             }
