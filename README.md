@@ -5,7 +5,7 @@ Shows the migration from a [simple REST service](http://spring.io/guides/gs/rest
 
 ## Prerequisites
     
-- JDK 1.8
+- JDK installed (set according version in [build.gradle](build.gradle))
 
 - bash like command line shell/interface
 
