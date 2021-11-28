@@ -16,7 +16,7 @@ import org.springframework.xml.xsd.XsdSchema;
 @SpringBootApplication
 public class SOAPServiceApplication {
 
-    public static final String NAMESPACE_URI = "http://stackoverflow.com/greeting-soap/";
+    public static final String NAMESPACE_URI = "https://stackoverflow.com/greeting-soap/";
 
     public static void main(String[] args) {
         SpringApplication.run(SOAPServiceApplication.class, args);

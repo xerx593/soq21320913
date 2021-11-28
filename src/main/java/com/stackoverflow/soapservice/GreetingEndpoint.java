@@ -1,9 +1,9 @@
 package com.stackoverflow.soapservice;
 
-import com.stackoverflow.greeting_soap.GetGreetingRequest;
-import com.stackoverflow.greeting_soap.GetGreetingResponse;
-import com.stackoverflow.greeting_soap.Greeting;
 import static com.stackoverflow.soapservice.SOAPServiceApplication.NAMESPACE_URI;
+import https.stackoverflow_com.greeting_soap.GetGreetingRequest;
+import https.stackoverflow_com.greeting_soap.GetGreetingResponse;
+import https.stackoverflow_com.greeting_soap.Greeting;
 import java.util.concurrent.atomic.AtomicLong;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;

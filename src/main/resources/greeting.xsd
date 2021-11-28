@@ -1,5 +1,5 @@
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://stackoverflow.com/greeting-soap/"
-           targetNamespace="http://stackoverflow.com/greeting-soap/" elementFormDefault="qualified">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="https://stackoverflow.com/greeting-soap/"
+           targetNamespace="https://stackoverflow.com/greeting-soap/" elementFormDefault="qualified">
 
     <xs:element name="getGreetingRequest">
         <xs:complexType>
