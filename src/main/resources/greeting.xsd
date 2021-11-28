@@ -5,7 +5,7 @@
         <xs:complexType>
             <xs:sequence>
                 <!-- "default" unfortunately does not work as expected (next issue/question!?;) -->
-                <xs:element name="name" type="xs:string" minOccurs="0" default="World"/>
+                <xs:element name="name" type="xs:string" minOccurs="0" nillable="true" default="from XSD" />
             </xs:sequence>
         </xs:complexType>
     </xs:element>
