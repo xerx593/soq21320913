@@ -63,7 +63,7 @@ class GreetingEndpointTest {
 
     @LocalServerPort
     private int port = 0;
-    
+
     @Autowired
     private WebServiceTemplate ws;
 
