@@ -123,6 +123,6 @@ class GreetingEndpointTest {
     assertNotNull(result.getGreeting().getContent());
     assertThat(
             result.getGreeting().getContent().startsWith("Hello")
-            && result.getGreeting().getContent().contains("from XSD")).isTrue();
+            && result.getGreeting().getContent().contains("World")).isTrue();
   }
 }
