@@ -18,7 +18,7 @@ public class GreetingEndpoint {
 
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "getGreetingRequest")
     @ResponsePayload
-    public GetGreetingResponse getCountry(@RequestPayload GetGreetingRequest request) {
+    public GetGreetingResponse sayHello(@RequestPayload GetGreetingRequest request) {
         GetGreetingResponse response = new GetGreetingResponse();
 
         Greeting greeting = new Greeting();
