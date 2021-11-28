@@ -21,6 +21,7 @@ import java.util.HashMap;
 import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,90 +37,92 @@ import org.springframework.ws.client.core.WebServiceTemplate;
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 class GreetingEndpointTest {
 
-    private static final QName NS_NAME_QNAME = QName.valueOf(
-            String.format("{%s}%s", SOAPServiceApplication.NAMESPACE_URI, "name")
-    );
+  private static final QName NS_NAME_QNAME = QName.valueOf(
+          String.format("{%s}%s", SOAPServiceApplication.NAMESPACE_URI, "name")
+  );
 
-    @TestConfiguration
-    static class TestConfig {
+  @TestConfiguration
+  static class TestConfig {
 
-        @Bean
-        public Jaxb2Marshaller marshaller() {
-            final Jaxb2Marshaller marshaller = new Jaxb2Marshaller();
-            marshaller.setPackagesToScan("https.stackoverflow_com.greeting_soap");
-            marshaller.setMarshallerProperties(new HashMap<String, Object>() {
-                {
-                    put(javax.xml.bind.Marshaller.JAXB_FORMATTED_OUTPUT, true);
-                }
-            });
-            return marshaller;
+    @Bean
+    public Jaxb2Marshaller marshaller() {
+      final Jaxb2Marshaller marshaller = new Jaxb2Marshaller();
+      marshaller.setPackagesToScan("com.stackoverflow.greeting_soap");
+      marshaller.setMarshallerProperties(new HashMap<String, Object>() {
+        {
+          put(javax.xml.bind.Marshaller.JAXB_FORMATTED_OUTPUT, true);
         }
-
-        @Bean
-        public WebServiceTemplate wsTemplate(Jaxb2Marshaller marshaller) {
-            return new WebServiceTemplate(marshaller);
-        }
+      });
+      return marshaller;
     }
 
-    @LocalServerPort
-    private int port = 0;
-
-    @Autowired
-    private WebServiceTemplate ws;
-
-    @Test
-    public void testSendAndReceive() {
-        // Given:
-        final String NAME = "Test";
-        GetGreetingRequest request = new GetGreetingRequest();
-        JAXBElement<String> elem = new JAXBElement<>(NS_NAME_QNAME, String.class, NAME);
-        request.setName(elem);
-
-        // When:
-        GetGreetingResponse result = (GetGreetingResponse) ws.marshalSendAndReceive("http://localhost:"
-                + port + "/ws", request);
-
-        // Then:
-        assertThat(result != null);
-        assertThat(result.getGreeting() != null);
-        assertThat(result.getGreeting().getContent() != null);
-        assertThat(result.getGreeting().getContent().startsWith("Hello")
-                && result.getGreeting().getContent().contains(NAME));
+    @Bean
+    public WebServiceTemplate wsTemplate(Jaxb2Marshaller marshaller) {
+      return new WebServiceTemplate(marshaller);
     }
+  }
 
-    @Test
-    public void testSendAndReceiveNullNameElem() {
-        // Given:
-        GetGreetingRequest request = new GetGreetingRequest();
+  @LocalServerPort
+  private int port = 0;
 
-        // When:
-        GetGreetingResponse result = (GetGreetingResponse) ws.marshalSendAndReceive("http://localhost:"
-                + port + "/ws", request);
+  @Autowired
+  private WebServiceTemplate ws;
 
-        // Then:
-        assertThat(result != null);
-        assertThat(result.getGreeting() != null);
-        assertThat(result.getGreeting().getContent() != null);
-        assertThat(result.getGreeting().getContent().startsWith("Hello")
-                && result.getGreeting().getContent().contains("World"));
-    }
+  @Test
+  public void testSendAndReceive() {
+    // Given:
+    final String NAME = "Test";
+    GetGreetingRequest request = new GetGreetingRequest();
+    JAXBElement<String> elem = new JAXBElement<>(NS_NAME_QNAME, String.class, NAME);
+    request.setName(elem);
 
-    @Test
-    public void testSendAndReceiveNullName() {
-        // Given:
-        GetGreetingRequest request = new GetGreetingRequest();
-        JAXBElement<String> elem = new JAXBElement<>(NS_NAME_QNAME, String.class, GetGreetingRequest.class, null);
-        request.setName(elem);
+    // When:
+    GetGreetingResponse result = (GetGreetingResponse) ws.marshalSendAndReceive("http://localhost:"
+            + port + "/ws", request);
 
-        // When:
-        GetGreetingResponse result = (GetGreetingResponse) ws.marshalSendAndReceive("http://localhost:"
-                + port + "/ws", request);
+    // Then:
+    assertNotNull(result);
+    assertNotNull(result.getGreeting());
+    assertNotNull(result.getGreeting().getContent());
+    assertThat(result.getGreeting().getContent().startsWith("Hello")
+            && result.getGreeting().getContent().contains(NAME)).isTrue();
+  }
 
-        // Then:
-        assertThat(result != null);
-        assertThat(result.getGreeting() != null);
-        assertThat(result.getGreeting().getContent() != null);
-        assertThat(result.getGreeting().getContent().startsWith("Hello")
-                && result.getGreeting().getContent().contains("from XSD"));
-    }
+  @Test
+  public void testSendAndReceiveNullNameElem() {
+    // Given:
+    GetGreetingRequest request = new GetGreetingRequest();
+
+    // When:
+    GetGreetingResponse result = (GetGreetingResponse) ws.marshalSendAndReceive("http://localhost:"
+            + port + "/ws", request);
+
+    // Then:
+    assertNotNull(result);
+    assertNotNull(result.getGreeting());
+    assertNotNull(result.getGreeting().getContent());
+    assertThat(
+            result.getGreeting().getContent().startsWith("Hello")
+            && result.getGreeting().getContent().contains("World")).isTrue();
+  }
+
+  @Test
+  public void testSendAndReceiveNullName() {
+    // Given:
+    GetGreetingRequest request = new GetGreetingRequest();
+    JAXBElement<String> elem = new JAXBElement<>(NS_NAME_QNAME, String.class, GetGreetingRequest.class, null);
+    request.setName(elem);
+
+    // When:
+    GetGreetingResponse result = (GetGreetingResponse) ws.marshalSendAndReceive("http://localhost:"
+            + port + "/ws", request);
+
+    // Then:
+    assertNotNull(result);
+    assertNotNull(result.getGreeting());
+    assertNotNull(result.getGreeting().getContent());
+    assertThat(
+            result.getGreeting().getContent().startsWith("Hello")
+            && result.getGreeting().getContent().contains("from XSD")).isTrue();
+  }
 }
