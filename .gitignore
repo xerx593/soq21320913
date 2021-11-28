@@ -25,3 +25,4 @@ manifest.yml
 .mvn
 .gradle
 build
+bin
