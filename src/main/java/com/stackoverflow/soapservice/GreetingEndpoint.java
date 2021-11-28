@@ -13,23 +13,24 @@ import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 @Endpoint
 public class GreetingEndpoint {
 
-    private static final String HELLO_TPL = "Hello, %s!";
-    private static final AtomicLong COUNTER = new AtomicLong();
+  private static final String HELLO_TPL = "Hello, %s!";
+  private static final AtomicLong COUNTER = new AtomicLong();
 
-    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "getGreetingRequest")
-    @ResponsePayload
-    public GetGreetingResponse sayHello(@RequestPayload GetGreetingRequest request) {
-        GetGreetingResponse response = new GetGreetingResponse();
+  @PayloadRoot(namespace = NAMESPACE_URI, localPart = "getGreetingRequest")
+  @ResponsePayload
+  public GetGreetingResponse sayHello(@RequestPayload GetGreetingRequest request) {
+    GetGreetingResponse response = new GetGreetingResponse();
 
-        Greeting greeting = new Greeting();
-        greeting.setContent(
-                String.format(
-                        HELLO_TPL, request.getName() == null ? "World" : request.getName()
-                )
-        );
-        greeting.setId(COUNTER.incrementAndGet());
+    Greeting greeting = new Greeting();
+    greeting.setContent(
+            String.format(
+                    HELLO_TPL, request.getName() == null || request.getName().getValue() == null
+                    ? "World" : request.getName().getValue()
+            )
+    );
+    greeting.setId(COUNTER.incrementAndGet());
 
-        response.setGreeting(greeting);
-        return response;
-    }
+    response.setGreeting(greeting);
+    return response;
+  }
 }
