@@ -1,0 +1,27 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://stackoverflow.com/greeting-soap/"
+           targetNamespace="http://stackoverflow.com/greeting-soap/" elementFormDefault="qualified">
+
+    <xs:element name="getGreetingRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <!-- "default" unfortunately does not work as expected (next issue/question!?;) -->
+                <xs:element name="name" type="xs:string" minOccurs="0" default="World"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getGreetingResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="greeting" type="tns:greeting"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="greeting">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long"/>
+            <xs:element name="content" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>
