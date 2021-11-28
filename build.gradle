@@ -6,7 +6,7 @@ plugins {
 
 group = 'com.stackoverflow'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '1.8'
+sourceCompatibility = '17'
 
 repositories {
 	mavenCentral()
@@ -54,6 +54,7 @@ bootJar {
     // archiveVersion =  '0.1.0'
 }
 dependencies {
+        implementation('org.glassfish.jaxb:jaxb-runtime')
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	testImplementation('org.springframework.boot:spring-boot-starter-test')
         // addtional dependencies
