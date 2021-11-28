@@ -47,7 +47,7 @@ class GreetingEndpointTest {
     @Bean
     public Jaxb2Marshaller marshaller() {
       final Jaxb2Marshaller marshaller = new Jaxb2Marshaller();
-      marshaller.setPackagesToScan("com.stackoverflow.greeting_soap");
+      marshaller.setPackagesToScan("https.stackoverflow_com.greeting_soap");
       marshaller.setMarshallerProperties(new HashMap<String, Object>() {
         {
           put(javax.xml.bind.Marshaller.JAXB_FORMATTED_OUTPUT, true);
